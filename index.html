@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Generalizing Assured AI for Traffic Control</title>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+        @import "main.css";
+    </style>
+
+</head>
+<body>
+    <div id="header-container">
+        <header>
+            <h1>Generalizing Assured AI for Traffic Control</h1>
+            <h3>Daniel Stambler, Evan Leung</h3>
+            <h4> Spring 2022</h4>
+            <div>
+                <div style="display:inline-block">
+                    <a class="button" href="presentation.pdf">Presentation (.pdf) <i class="fa fa-download"></i> </a>
+                </div>
+
+            </div>
+        </header>
+    </div>
+    <article>
+        <br>
+        <h2>Assuring AI</h2>
+        <p>
+            Artificial intelligence is becoming an increasingly large part of society. AIs have demonstrated the ability to generally perform very well at many different tasks, including
+            providing search engine results, providing content recommendations, powering virtual assistants, controlling autonomous vehicles, and automatically translating different languages.
+            Despite AI's impressive track record, it often fails on edge cases. Because of this, AI cannot be applied to mission critical applications where failures cannot be tolerated.
+            To circumvent this flaw of AI, the AI can be observed using white box or black box monitors. When the AI is uncertain or near failure, a safer, determinstic algorithm can be used
+            until the AI regains confidence.
+            
+        </p>
+        <hr>
+        <h2> Generalizing to Traffic Grid Topologies</h2>
+        <p> 
+            Previous work has demonstrated the advantages and success of an <a href="https://www.cnds.jhu.edu/radics/">Assured AI traffic light controller</a>. However, the AI was trained as a monolithic model,
+            requiring a long, costly training process for every different traffic grid topology to which the AI is applied. Our goal was to train a generalized model that can be applied to any traffic grid topology
+            after being trained once.
+        </p>
+
+        <b>A summary of how our protocol works as follows:</b>
+        <ul>
+            <li>Adds header to each packet with sending rate</li>
+            <li>Server continuously measures the actual received rate</li>
+            <li>If discrepancy appears, server sends feedback and sender backs off</li>
+            <li>Periodically bunches a group of packets and sends at higher rate</li>
+            <li>If higher rate is detected increases rate of sender</li>
+        </ul>
+        <p>
+        Our protocol was able to effectively achieve satisfactory bandwidth, while also seldom incurring latency penalties. See presentation for more details.
+        </p>
+        <h2> Visual Representation Of Our Protocol </h2>
+        <div style="margin-top:50px; margin-bottom:50px">
+            <div style="margin-bottom: 50px; text-align: center;">
+                <img src="./protocol1.png" class="image">
+                <i style="text-align: center" >Our protocol sending a burst to see if we can increase sending rate.</i>
+            </div>
+            <div style="margin-bottom: 50px; text-align: center;">
+                <img src="./protocol2.png" class="image">
+                <i style="text-align: center">Our protocol detecting that we have less bandwidth than our sending rate.</i>
+            </div>
+        </div>
+        <hr>
+        <h5> Android App </h5>
+        <div class="row">
+            <div class="column" style="width: 60%; float:left">
+                <p>
+                    In order to demonstrate the protocol, we developed a proof of concept Android app, which can be downloaded above. The app can run our protocol with a known server, and can be configured with different parameters. The bandwidth of both the upload and download link is displayed in a live graph. 
+                </p>
+                <p>
+                    To provide a tangible indication of latency, an additional layer of interactivity is also present. The user can move an object around the screen, and the app displays the object's position both when the phone registers a touch and after sending the coordinates to the server and back. 
+                </p>
+            </div>
+            <div style="width: 40%; float: right">
+                <img src="./app2.png" width="45%">
+                <img src="./app1.png" width="45%">
+            </div>
+            <div style="clear:both">
+        </div>
+        <div class = "row">
+            <h5> Architecture </h5>
+            <img src="./arch.png">
+        </div>
+    </article>
+</body>
+</html>
