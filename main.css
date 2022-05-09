@@ -287,3 +287,15 @@ article {
 .medium-img{
   width: 60%;
 }
+
+
+.video-section{
+  width: 60%;
+}
+
+@media screen and (max-width: 800px) {
+  .video-section{
+    width: 90%;
+  }
+}
+
