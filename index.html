@@ -109,14 +109,26 @@
         <h1>Results</h1>
         <h3>Safe Controller Baseline</h3>
         <p> 
-            TODO: Report the BASELINE and play the video (3x3,opt: record 5x5)
+            Baselines
+            <ul>
+                <li>
+                    <b> 3x3 Topology</b>: 5.57 m/s average speed
+                </li>
+                <li>
+                    <b> 5x5 Topology</b>: 5.39 m/s average speed
+                </li>
+            </ul> 
+
+            5x5 Safe Controller Video
+            <div>
+                TODO: INSERT VIDEO HERE
+            </div>
         </p>
     
 
         <h3>The Train Enviornment</h3>
         <p> 
-            TODO: Report the Result, display video(s) play the video (3x3 for best model, can also try to play 5x5 look ahead)
-            
+            Best Results
             <ul>
                 <li>
                     <b> AI Safe Model</b>:  After <b>49,700,000</b> steps, we get an average speed of <b>6.429 m/s</b> as our best model
@@ -124,20 +136,44 @@
                 <li>
                     <b> AI Look Ahead Model</b>:  After <b>44,350,000</b> steps, we get an average speed of 5.51, as our best model
                 </li>
-            </ul> Best Results
-
-           
+            </ul> 
+            AI Safe Model Training Plot
+            <div>
+                <img src="images/best_model_train_speeds.png" alt="AI with safe controller best training plot" class="medium-img">
+            </div>
+            AI Safe Model Video
+            <div>
+                TODO: INSERT VIDEO HERE
+            </div>
         </p>
 
         <h3>The N x M Evaluation Enviornment</h3>
         <p> 
-            TODO: Report Result. Display Video(s) (3x3 for best model, 5x5 for best model. 5x5 look ahead)
+            Best Results
+            <ul>
+                <li>
+                    <b> Any of our AI models to a 3x3 Topology</b>:  We get an average speed of  <b>4.3 m/s</b>  regardless of which model we apply
+                </li>
+                <li>
+                    <b> Any of our AI models to a 5x5 Topology</b>:  We get an average speed of  <b>4.22 m/s</b>  regardless of which model we apply
+                </li>
+            </ul> 
+            Best Model in a 5x5 Generalized Enviornment Video
+            <div>
+                TODO: INSERT VIDEO HERE
+            </div>
         </p>
         <hr>
 
         <h1>Conclusion and Future Work</h1>
         <p> 
-            We were unable to get our model to generalize. Research has shown that generalizing
+            While, we are able to succesfully train powerful models that outperform the safe controller
+            in our train enviornment, we were unable to get our model to generalize. No matter the model that we try to run
+            in our generalized enviornment, the average speed in the system remains unmoved,
+            and well below the safe controller baseline.
+        </p> 
+        <p>
+            Research has shown that generalizing
             RL models to be very challenging. Best approach going forward is to try
             and train a model on multiple enviornments in parallel. 
         </p>
@@ -149,40 +185,9 @@
             enviornments to get a generalized model
         </p>
 
+        <br>
+        <br>
 
-
-        <h2> REMOVE </h2>
-        <div style="margin-top:50px; margin-bottom:50px">
-            <div style="margin-bottom: 50px; text-align: center;">
-                <img src="./protocol1.png" class="image">
-                <i style="text-align: center" >Our protocol sending a burst to see if we can increase sending rate.</i>
-            </div>
-            <div style="margin-bottom: 50px; text-align: center;">
-                <img src="./protocol2.png" class="image">
-                <i style="text-align: center">Our protocol detecting that we have less bandwidth than our sending rate.</i>
-            </div>
-        </div>
-        <hr>
-        <h2> REMOVE </h2>
-        <div class="row">
-            <div class="column" style="width: 60%; float:left">
-                <p>
-                    In order to demonstrate the protocol, we developed a proof of concept Android app, which can be downloaded above. The app can run our protocol with a known server, and can be configured with different parameters. The bandwidth of both the upload and download link is displayed in a live graph. 
-                </p>
-                <p>
-                    To provide a tangible indication of latency, an additional layer of interactivity is also present. The user can move an object around the screen, and the app displays the object's position both when the phone registers a touch and after sending the coordinates to the server and back. 
-                </p>
-            </div>
-            <div style="width: 40%; float: right">
-                <img src="./app2.png" width="45%">
-                <img src="./app1.png" width="45%">
-            </div>
-            <div style="clear:both">
-        </div>
-        <div class = "row">
-            <h5> Architecture </h5>
-            <img src="./arch.png">
-        </div>
     </article>
 </body>
 </html>
