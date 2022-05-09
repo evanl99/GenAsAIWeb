@@ -155,16 +155,22 @@ body {
   font-size: 1em;
   line-height: 1.5; }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+
+h1 {
   font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-size: 1.25em;
+  font-size: 1.5em;
   line-height: 1.2;
-  margin: 0 0 0.75em; }
+  margin: 0 0 0.75em; 
+}
+
+
+h2{
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-size: 1.25em;
+    line-height: 1.2;
+    margin: 0 0 0.75em; 
+  }
+
 
 p {
   margin: 0 0 0.75em; }
@@ -255,7 +261,7 @@ header {
 
 #header-container {
   width: 100%;
-  background-color: #ADD8E6;
+  background-color: #7FFFD4;
   padding-top: 2rem;
   padding-bottom: 2rem; }
 

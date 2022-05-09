@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <title>Generalizing Assured AI for Traffic Control</title>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <style type="text/css">
-        @import "main.css";
-    </style>
+    <link rel="stylesheet" href="main.css">
 
 </head>
 <body>
@@ -19,41 +17,141 @@
                 <div style="display:inline-block">
                     <a class="button" href="presentation.pdf">Presentation (.pdf) <i class="fa fa-download"></i> </a>
                 </div>
+                <div style="display:inline-block">
+                    <a class="button" href="presentation.pdf">Source (.zip) <i class="fa fa-download"></i> </a>
+                </div>
 
             </div>
         </header>
     </div>
     <article>
         <br>
-        <h2>Assuring AI</h2>
+        <h1>Introduction</h1>
+        <h3>Assuring AI</h3>
         <p>
             Artificial intelligence is becoming an increasingly large part of society. AIs have demonstrated the ability to generally perform very well at many different tasks, including
             providing search engine results, providing content recommendations, powering virtual assistants, controlling autonomous vehicles, and automatically translating different languages.
             Despite AI's impressive track record, it often fails on edge cases. Because of this, AI cannot be applied to mission critical applications where failures cannot be tolerated.
             To circumvent this flaw of AI, the AI can be observed using white box or black box monitors. When the AI is uncertain or near failure, a safer, determinstic algorithm can be used
             until the AI regains confidence.
-            
-        </p>
-        <hr>
-        <h2> Generalizing to Traffic Grid Topologies</h2>
-        <p> 
-            Previous work has demonstrated the advantages and success of an <a href="https://www.cnds.jhu.edu/radics/">Assured AI traffic light controller</a>. However, the AI was trained as a monolithic model,
-            requiring a long, costly training process for every different traffic grid topology to which the AI is applied. Our goal was to train a generalized model that can be applied to any traffic grid topology
-            after being trained once.
         </p>
 
-        <b>A summary of how our protocol works as follows:</b>
-        <ul>
-            <li>Adds header to each packet with sending rate</li>
-            <li>Server continuously measures the actual received rate</li>
-            <li>If discrepancy appears, server sends feedback and sender backs off</li>
-            <li>Periodically bunches a group of packets and sends at higher rate</li>
-            <li>If higher rate is detected increases rate of sender</li>
-        </ul>
-        <p>
-        Our protocol was able to effectively achieve satisfactory bandwidth, while also seldom incurring latency penalties. See presentation for more details.
+        <h3> Previous Work</h3>
+        <p> 
+            Previous work has demonstrated the advantages and success of an <a href="https://www.cnds.jhu.edu/radics/">Assured AI traffic light controller</a>.
+            However, the AI was trained as a monolithic model,
+            requiring a long, costly training process for every different traffic grid topology to which the AI is applied.
+            Previous attempts include
+            <ul>
+                <li><a href="https://www.cnds.jhu.edu/courses/cs717-2020/assuredAI/" target="blank"> 
+                    Spring 2020 Advanced Distrubuted Project First Monolithic Model Trained </a>
+                </li>
+                <li>Sumo Flow Monolithic Model Based on speed</li>
+                <li>Gym CityFlow - A more lightweight simulation enviornment </li>
+                All credit goes to Jerry Chen and Brian Wheatman for their previous work on this project
+            </ul>
         </p>
-        <h2> Visual Representation Of Our Protocol </h2>
+
+        <h3> Generalizing to Traffic Grid Topologies</h3>
+        <p> 
+            Our goal was to train a generalized model that can be applied to any N x M traffic grid topology
+            after being trained once.
+        </p>
+        <hr>
+
+        <h1>Metholody and Contributions</h1>
+        <p> 
+            Note: In all our measurements, we use <b>average speed of all observed cars</b> as our metric
+            <p>
+                <b>Establishing a baseline with all safe controller</b>
+                <br>
+                To get a basline per first ran the simulation over a 3x3 grid where each light is a pre-programmed safe controller
+            </p>
+
+            <p>
+                <b>The Training Enviornment</b>
+                <br>
+                Enviornment for training at least 1 AI controller. The idea is to avoid placing a traffic light on the edge of the grid
+                to get even training. Some approaches include:
+                <ul>
+                    <li><b> AI Safe Model</b>: Train one AI controller in the center of a 3x3 enviornment, surrounded by safe controllers</li>
+                    <li><b> AI Look Ahead Model</b>: Train one AI controller in the center of a 5x5 enviornment, where the actions of its adjecent neighbors
+                        are fed into the model as features during the training process </li>
+                </ul>
+            </p>
+
+            <p>
+                <b>The generalized enviornment</b>
+                <br>
+                A model trained in the previous enviornment is convolved over each intersection over an NxM topology.
+                The model is used to make predictions over this generalized topology. Work here includes
+                <ul>
+                    <li> Applying the above models to each traffic light during an evaluation step</li>
+                    <li> Padding the exterior of the enviornment with safe controllers and applying the above models
+                        to the interior traffic lights
+                    </li>
+                </ul>
+            </p>
+           
+           <p>
+                <b>Other Contributions to the project:</b>
+                <ul>
+                    <li>
+                        Logging and plotting of metrics during training
+                    </li>
+                    <li>Script for evenly distributing training jobs across multiple machines, limiting to four jobs per machine</li>
+                    <li>Scripts for managing jobs across all machines </li>
+                </ul>
+           </p>
+           
+        <hr>
+
+        <h1>Results</h1>
+        <h3>Safe Controller Baseline</h3>
+        <p> 
+            TODO: Report the BASELINE and play the video (3x3,opt: record 5x5)
+        </p>
+    
+
+        <h3>The Train Enviornment</h3>
+        <p> 
+            TODO: Report the Result, display video(s) play the video (3x3 for best model, can also try to play 5x5 look ahead)
+            
+            <ul>
+                <li>
+                    <b> AI Safe Model</b>:  After <b>49,700,000</b> steps, we get an average speed of <b>6.429 m/s</b> as our best model
+                </li>
+                <li>
+                    <b> AI Look Ahead Model</b>:  After <b>44,350,000</b> steps, we get an average speed of 5.51, as our best model
+                </li>
+            </ul> Best Results
+
+           
+        </p>
+
+        <h3>The N x M Evaluation Enviornment</h3>
+        <p> 
+            TODO: Report Result. Display Video(s) (3x3 for best model, 5x5 for best model. 5x5 look ahead)
+        </p>
+        <hr>
+
+        <h1>Conclusion and Future Work</h1>
+        <p> 
+            We were unable to get our model to generalize. Research has shown that generalizing
+            RL models to be very challenging. Best approach going forward is to try
+            and train a model on multiple enviornments in parallel. 
+        </p>
+        <p> 
+            Given that each model takes about a week
+            or 50,000,000 timesteps to train with Sumo, the biggest challenges will be computational. One suggestion
+            would be to move away from using Sumo as a simulator and instead either use Gym CityFlow or a custom, fast enviornment
+            that is optimized to take advantage of GPU resouces. Then, train many models in different combinations of different
+            enviornments to get a generalized model
+        </p>
+
+
+
+        <h2> REMOVE </h2>
         <div style="margin-top:50px; margin-bottom:50px">
             <div style="margin-bottom: 50px; text-align: center;">
                 <img src="./protocol1.png" class="image">
@@ -65,7 +163,7 @@
             </div>
         </div>
         <hr>
-        <h5> Android App </h5>
+        <h2> REMOVE </h2>
         <div class="row">
             <div class="column" style="width: 60%; float:left">
                 <p>
